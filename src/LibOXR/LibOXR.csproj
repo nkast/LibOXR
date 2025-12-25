@@ -32,6 +32,7 @@
     <Compile Include="OxrActionSet.cs" />
     <Compile Include="OxrAPI.cs" />
     <Compile Include="OxrExtensions.cs" />
+    <Compile Include="OxrHandTracker.cs" />
     <Compile Include="OxrInstance.cs" />
     <Compile Include="OxrPassthroughFB.cs" />
     <Compile Include="OxrPassthroughLayerFB.cs" />

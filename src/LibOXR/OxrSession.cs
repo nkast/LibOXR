@@ -329,6 +329,33 @@ namespace nkast.LibOXR
             return actionPathsBuffer;
         }
 
+        private unsafe delegate Result xrCreateHandTrackerEXT(Session xrSession, HandTrackerCreateInfoEXT htci, HandTrackerEXT* handTracker);
+
+        public unsafe Result CreateHandTracker(HandJointSetEXT handJointSet, HandEXT handEXT
+            , OxrInstance oxrInstance, ref OxrHandTracker handTracker)
+        {
+            Result xrResult;
+
+            handTracker = null;
+
+            xrResult = oxrInstance.GetInstanceProcAddr("xrCreateHandTrackerEXT", 
+                out xrCreateHandTrackerEXT Fun_xrCreateHandTrackerEXT);
+
+            HandTrackerEXT localHandTracker = default;
+
+            HandTrackerCreateInfoEXT createInfo = default;            
+            createInfo.Type = StructureType.HandTrackerCreateInfoExt;
+            createInfo.HandJointSet = handJointSet;
+            createInfo.Hand = handEXT;
+
+            xrResult = Fun_xrCreateHandTrackerEXT(Session, createInfo, &localHandTracker);
+
+            if (xrResult == Result.Success)
+                handTracker = new OxrHandTracker(localHandTracker, oxrInstance);
+
+            return xrResult;
+        }
+
         private unsafe delegate Result xrCreatePassthroughFB(Session xrSession, PassthroughCreateInfoFB ptci, PassthroughFB* passthrough);
         private unsafe delegate Result xrCreatePassthroughLayerFB(Session xrSession, PassthroughLayerCreateInfoFB plci, PassthroughLayerFB* passthroughLayer);
 
