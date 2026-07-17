@@ -332,7 +332,7 @@ namespace nkast.LibOXR
         private unsafe delegate Result xrCreateHandTrackerEXT(Session xrSession, HandTrackerCreateInfoEXT htci, HandTrackerEXT* handTracker);
 
         public unsafe Result CreateHandTracker(HandJointSetEXT handJointSet, HandEXT handEXT
-            , OxrInstance oxrInstance, ref OxrHandTracker handTracker)
+            , OxrInstance oxrInstance, out OxrHandTracker handTracker)
         {
             Result xrResult;
 
